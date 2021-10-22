@@ -3,6 +3,7 @@ import numpy as np
 import time
 import os
 import hand_tracking_module as htm
+import playsound as ps
 
 header_path = './UI/Header Selection'
 header_list = os.listdir(header_path)
