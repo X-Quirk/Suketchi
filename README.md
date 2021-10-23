@@ -10,5 +10,6 @@ This won't require the use of graphic tablets or drawing pads.
    * `pip install numpy`
    * `pip install opencv-python`
    * `pip install mediapipe`
+   * `pip install playsound==1.2.2` : Current ver 1.3.0 has some compatibility problem with the audio files
 # How to use
 
