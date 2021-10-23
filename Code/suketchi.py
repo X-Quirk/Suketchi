@@ -5,6 +5,12 @@ import os
 import hand_tracking_module as htm
 import playsound as ps
 
+def play_intro():
+    ps.playsound('./Assets/Audio/Player-boost-recharging.wav')
+
+def play_color_change():
+    ps.playsound('./Assets/Audio/Player_jumping_in_a_video_game.wav')
+
 header_path = './UI/Header Selection'
 header_list = os.listdir(header_path)
 # print(header_list)
@@ -64,6 +70,7 @@ img_white_screen = 255 * np.ones((720, 1280, 3), np.uint8)
 detector = htm.handDetector(detection_confidence=0.85)
 
 while True:
+
     # 1. Import Image
     success, webcam_img = cap.read()
     webcam_img  = cv2.flip(webcam_img , 1) # To avoid the mirror effect
