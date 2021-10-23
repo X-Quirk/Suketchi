@@ -5,11 +5,14 @@ import os
 import hand_tracking_module as htm
 import playsound as ps
 
+intro_audio_path = './Assets/Audio/Player_boost_recharging.wav'
+color_change_audio_path = './Assets/Audio/Player_jumping_in_a_video_game.wav'
+
 def play_intro():
-    ps.playsound('./Assets/Audio/Player-boost-recharging.wav')
+    ps.playsound(intro_audio_path)
 
 def play_color_change():
-    ps.playsound('./Assets/Audio/Player_jumping_in_a_video_game.wav')
+    ps.playsound(color_change_audio_path)
 
 header_path = './UI/Header Selection'
 header_list = os.listdir(header_path)
@@ -68,6 +71,8 @@ img_canvas = np.zeros((720, 1280, 3), np.uint8)
 img_white_screen = 255 * np.ones((720, 1280, 3), np.uint8)
 
 detector = htm.handDetector(detection_confidence=0.85)
+
+play_intro()
 
 while True:
 
