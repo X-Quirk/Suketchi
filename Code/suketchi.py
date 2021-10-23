@@ -5,7 +5,7 @@ import os
 import hand_tracking_module as htm
 import playsound as ps
 
-intro_audio_path = './Assets/Audio/Player_boost_recharging.wav'
+intro_audio_path = './Assets/Audio/Medieval_show_fanfare_announcement.wav'
 color_change_audio_path = './Assets/Audio/Player_jumping_in_a_video_game.wav'
 
 def play_intro():
@@ -68,7 +68,7 @@ cap.set(3, 1280)
 cap.set(4, 720)
 
 img_canvas = np.zeros((720, 1280, 3), np.uint8)
-img_white_screen = 255 * np.ones((720, 1280, 3), np.uint8)
+img_white_board = 255 * np.ones((720, 1280, 3), np.uint8)
 
 detector = htm.handDetector(detection_confidence=0.85)
 
@@ -146,23 +146,23 @@ while True:
                 else:
                     pass
             elif x1 < 100:
-                if 104 < y1 < 172:
+                if 204 < y1 < 272:
                     stroke_side = stroke_size_overlay_list[0]
                     brush_thickness = 10
                     eraser_thickness = brush_thickness*3
-                elif 180 < y1 < 257:
+                elif 280 < y1 < 357:
                     stroke_side = stroke_size_overlay_list[1]
                     brush_thickness = 14
                     eraser_thickness = brush_thickness*3
-                elif 277 < y1 < 363:
+                elif 377 < y1 < 463:
                     stroke_side = stroke_size_overlay_list[2]
                     brush_thickness = 18
                     eraser_thickness = brush_thickness*3
-                elif 373 < y1 < 466:
+                elif 473 < y1 < 566:
                     stroke_side = stroke_size_overlay_list[3]
                     brush_thickness = 22
                     eraser_thickness = brush_thickness*3
-                elif 486 < y1 < 588:
+                elif 586 < y1 < 688:
                     stroke_side = stroke_size_overlay_list[4]
                     brush_thickness = 26
                     eraser_thickness = brush_thickness*3
@@ -178,11 +178,11 @@ while True:
             if color == (0, 0, 0):
                 cv2.line(webcam_img, (x_prev,y_prev), (x1,y1), color,eraser_thickness)
                 cv2.line(img_canvas, (x_prev,y_prev), (x1,y1), color,eraser_thickness)
-                cv2.line(img_white_screen, (x_prev,y_prev), (x1,y1), color,eraser_thickness)
+                cv2.line(img_white_board, (x_prev,y_prev), (x1,y1), color,eraser_thickness)
             else:
                 cv2.line(webcam_img, (x_prev,y_prev), (x1,y1), color,brush_thickness)
                 cv2.line(img_canvas, (x_prev,y_prev), (x1,y1), color,brush_thickness)
-                cv2.line(img_white_screen, (x_prev,y_prev), (x1,y1), color,brush_thickness)
+                cv2.line(img_white_board, (x_prev,y_prev), (x1,y1), color,brush_thickness)
             x_prev, y_prev = x1, y1
 
     # Merging images onto Web Cam
@@ -198,7 +198,7 @@ while True:
     webcam_img[100:720,0:100] = stroke_side
 
     cv2.imshow("Suketchi", webcam_img)
-    cv2.imshow("Canvas", img_white_screen)
+    cv2.imshow("Canvas", img_white_board)
 
     if cv2.waitKey(1) & 0xff == ord('q'):
         break
