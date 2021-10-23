@@ -212,7 +212,7 @@ while True:
     webcam_img[100:720,0:100] = stroke_side
 
     cv2.imshow("Suketchi", webcam_img)
-    cv2.imshow("Canvas", img_white_board)
+    cv2.imshow("White Board", img_white_board)
 
     if cv2.waitKey(1) & 0xff == ord('q'):
         break
