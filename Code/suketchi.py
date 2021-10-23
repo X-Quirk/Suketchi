@@ -104,45 +104,59 @@ while True:
                 if 149 < x1 < 213:
                     header = header_overlay_list[0]
                     color = red
+                    play_color_change()
                 elif 237 < x1 < 299:
                     header = header_overlay_list[1]
                     color = dark_red
+                    play_color_change()
                 elif 317 < x1 < 377:
                     header = header_overlay_list[2]
                     color = brown
+                    play_color_change()
                 elif 394 < x1 <458:
                     header = header_overlay_list[3]
                     color = orange
+                    play_color_change()
                 elif 475 < x1 < 528:
                     header = header_overlay_list[4]
                     color = yellow
+                    play_color_change()
                 elif 553 < x1 < 614:
                     header = header_overlay_list[5]
                     color = flu_green
+                    play_color_change()
                 elif 633 < x1 < 694:
                     header = header_overlay_list[6]
                     color = green
+                    play_color_change()
                 elif 710 < x1 < 773:
                     header = header_overlay_list[7]
                     color = dark_green
+                    play_color_change()
                 elif 791 < x1 < 852:
                     header = header_overlay_list[8]
                     color = blue
+                    play_color_change()
                 elif 871 < x1 < 933:
                     header = header_overlay_list[9]
                     color = dark_blue
+                    play_color_change()
                 elif  948 < x1 < 1012:
                     header = header_overlay_list[10]
                     color = pink
+                    play_color_change()
                 elif 1028 < x1 < 1090:
                     header = header_overlay_list[11]
                     color = violet
+                    play_color_change()
                 elif 1106 < x1 < 1168:
                     header = header_overlay_list[12]
                     color = white
+                    play_color_change()
                 elif 1181 < x1 < 1250:
                     header = header_overlay_list[13]
                     color = (0, 0, 0)
+                    play_color_change()
                 else:
                     pass
             elif x1 < 100:
