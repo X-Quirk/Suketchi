@@ -5,7 +5,7 @@ import os
 import hand_tracking_module as htm
 import playsound as ps
 
-intro_audio_path = './Assets/Audio/Medieval_show_fanfare_announcement.wav'
+intro_audio_path = './Assets/Audio/Player_boost_recharging.wav'
 color_change_audio_path = './Assets/Audio/Player_jumping_in_a_video_game.wav'
 
 def play_intro():
