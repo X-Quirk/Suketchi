@@ -61,7 +61,7 @@ violet = (158, 19, 135)
 white = (240, 246, 250)
 
 color = red # Setting default color as red
-color_for_board = (255,255,255) # Setting eraser color as white for white board
+eraser_color_for_board = (255,255,255) # Setting eraser color as white for white board
 
 brush_thickness = 18
 eraser_thickness = 54
@@ -203,7 +203,7 @@ while True:
             if color == (0, 0, 0):
                 cv2.line(webcam_img, (x_prev,y_prev), (x1,y1), color,eraser_thickness)
                 cv2.line(img_canvas, (x_prev,y_prev), (x1,y1), color,eraser_thickness)
-                cv2.line(img_white_board, (x_prev,y_prev), (x1,y1), color_for_board,eraser_thickness)
+                cv2.line(img_white_board, (x_prev,y_prev), (x1,y1), eraser_color_for_board,eraser_thickness)
             else:
                 cv2.line(webcam_img, (x_prev,y_prev), (x1,y1), color,brush_thickness)
                 cv2.line(img_canvas, (x_prev,y_prev), (x1,y1), color,brush_thickness)
