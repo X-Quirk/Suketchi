@@ -6,7 +6,7 @@ import hand_tracking_module as htm
 import playsound as ps
 
 intro_audio_path = './Assets/Audio/Player_boost_recharging.wav'
-color_change_audio_path = './Assets/Audio/Player_jumping_in_a_video_game.wav'
+color_change_audio_path = './Assets/Audio/Unlock_New_Item_Game_Notification_trimmed.wav'
 
 def play_intro():
     ps.playsound(intro_audio_path)
