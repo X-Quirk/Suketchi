@@ -7,12 +7,16 @@ import playsound as ps
 
 intro_audio_path = './Assets/Audio/Player_boost_recharging.wav'
 color_change_audio_path = './Assets/Audio/Player_jumping_in_a_video_game_trimmed.wav'
+stroke_size_audio_path = './Assets/Audio/Unlock_New_Item_Game_Notification_trimmed.wav'
 
 def play_intro():
     ps.playsound(intro_audio_path)
 
 def play_color_change():
     ps.playsound(color_change_audio_path)
+
+def play_stroke_size_change():
+    ps.playsound(stroke_size_audio_path)
 
 header_path = './UI/Header Selection'
 header_list = os.listdir(header_path)
@@ -164,22 +168,27 @@ while True:
                     stroke_side = stroke_size_overlay_list[0]
                     brush_thickness = 10
                     eraser_thickness = brush_thickness*3
+                    play_stroke_size_change()
                 elif 280 < y1 < 357:
                     stroke_side = stroke_size_overlay_list[1]
                     brush_thickness = 14
                     eraser_thickness = brush_thickness*3
+                    play_stroke_size_change()
                 elif 377 < y1 < 463:
                     stroke_side = stroke_size_overlay_list[2]
                     brush_thickness = 18
                     eraser_thickness = brush_thickness*3
+                    play_stroke_size_change()
                 elif 473 < y1 < 566:
                     stroke_side = stroke_size_overlay_list[3]
                     brush_thickness = 22
                     eraser_thickness = brush_thickness*3
+                    play_stroke_size_change()
                 elif 586 < y1 < 688:
                     stroke_side = stroke_size_overlay_list[4]
                     brush_thickness = 26
                     eraser_thickness = brush_thickness*3
+                    play_stroke_size_change()
                 else:
                     pass
             cv2.rectangle(webcam_img, (x1, y1-15), (x2, y2+15),color,cv2.FILLED)
