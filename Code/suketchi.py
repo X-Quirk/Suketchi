@@ -4,19 +4,32 @@ import time
 import os
 import hand_tracking_module as htm
 import playsound as ps
+import threading
 
 intro_audio_path = './Assets/Audio/Player_boost_recharging.wav'
 color_change_audio_path = './Assets/Audio/Player_jumping_in_a_video_game_trimmed.wav'
 stroke_size_audio_path = './Assets/Audio/Unlock_New_Item_Game_Notification_trimmed.wav'
 
+
 def play_intro():
     ps.playsound(intro_audio_path)
+
 
 def play_color_change():
     ps.playsound(color_change_audio_path)
 
+
 def play_stroke_size_change():
     ps.playsound(stroke_size_audio_path)
+
+
+def sound_color_change():
+    threading.Thread(target=play_color_change, daemon=True).start()
+
+
+def sound_stroke_size_change():
+    threading.Thread(target=play_stroke_size_change, daemon=True).start()
+
 
 header_path = './UI/Header Selection'
 header_list = os.listdir(header_path)
@@ -60,8 +73,9 @@ pink = (195, 33, 235)
 violet = (158, 19, 135)
 white = (240, 246, 250)
 
-color = red # Setting default color as red
-eraser_color_for_board = (255,255,255) # Setting eraser color as white for white board
+color = red  # Setting default color as red
+# Setting eraser color as white for white board
+eraser_color_for_board = (255, 255, 255)
 
 brush_thickness = 18
 eraser_thickness = 54
@@ -84,19 +98,19 @@ while True:
 
     # 1. Import Image
     success, webcam_img = cap.read()
-    webcam_img  = cv2.flip(webcam_img , 1) # To avoid the mirror effect
+    webcam_img = cv2.flip(webcam_img, 1)  # To avoid the mirror effect
 
     # 2. Tracking hand Landmarks
-    webcam_img  = detector.findHands(webcam_img )
-    landmark_list = detector.findLandmarkPosition(webcam_img , draw=False)
+    webcam_img = detector.findHands(webcam_img)
+    landmark_list = detector.findLandmarkPosition(webcam_img, draw=False)
 
     if len(landmark_list) != 0:
         # print(landmark_list)
-       
+
         # Tip of the index finger
         x1, y1 = landmark_list[8][0:]
 
-         # Tip of the middle finger
+        # Tip of the middle finger
         x2, y2 = landmark_list[12][0:]
 
         # 3. Check Finger count
@@ -110,59 +124,59 @@ while True:
                 if 149 < x1 < 213:
                     header = header_overlay_list[0]
                     color = red
-                    play_color_change()
+                    sound_color_change()
                 elif 237 < x1 < 299:
                     header = header_overlay_list[1]
                     color = dark_red
-                    play_color_change()
+                    sound_color_change()
                 elif 317 < x1 < 377:
                     header = header_overlay_list[2]
                     color = brown
-                    play_color_change()
-                elif 394 < x1 <458:
+                    sound_color_change()
+                elif 394 < x1 < 458:
                     header = header_overlay_list[3]
                     color = orange
-                    play_color_change()
+                    sound_color_change()
                 elif 475 < x1 < 528:
                     header = header_overlay_list[4]
                     color = yellow
-                    play_color_change()
+                    sound_color_change()
                 elif 553 < x1 < 614:
                     header = header_overlay_list[5]
                     color = flu_green
-                    play_color_change()
+                    sound_color_change()
                 elif 633 < x1 < 694:
                     header = header_overlay_list[6]
                     color = green
-                    play_color_change()
+                    sound_color_change()
                 elif 710 < x1 < 773:
                     header = header_overlay_list[7]
                     color = dark_green
-                    play_color_change()
+                    sound_color_change()
                 elif 791 < x1 < 852:
                     header = header_overlay_list[8]
                     color = blue
-                    play_color_change()
+                    sound_color_change()
                 elif 871 < x1 < 933:
                     header = header_overlay_list[9]
                     color = dark_blue
-                    play_color_change()
-                elif  948 < x1 < 1012:
+                    sound_color_change()
+                elif 948 < x1 < 1012:
                     header = header_overlay_list[10]
                     color = pink
-                    play_color_change()
+                    sound_color_change()
                 elif 1028 < x1 < 1090:
                     header = header_overlay_list[11]
                     color = violet
-                    play_color_change()
+                    sound_color_change()
                 elif 1106 < x1 < 1168:
                     header = header_overlay_list[12]
                     color = white
-                    play_color_change()
+                    sound_color_change()
                 elif 1181 < x1 < 1250:
                     header = header_overlay_list[13]
                     color = (0, 0, 0)
-                    play_color_change()
+                    sound_color_change()
                 else:
                     pass
             elif x1 < 100:
@@ -170,44 +184,51 @@ while True:
                     stroke_side = stroke_size_overlay_list[0]
                     brush_thickness = 10
                     eraser_thickness = brush_thickness*3
-                    play_stroke_size_change()
+                    sound_stroke_size_change()
                 elif 280 < y1 < 357:
                     stroke_side = stroke_size_overlay_list[1]
                     brush_thickness = 14
                     eraser_thickness = brush_thickness*3
-                    play_stroke_size_change()
+                    sound_stroke_size_change()
                 elif 377 < y1 < 463:
                     stroke_side = stroke_size_overlay_list[2]
                     brush_thickness = 18
                     eraser_thickness = brush_thickness*3
-                    play_stroke_size_change()
+                    sound_stroke_size_change()
                 elif 473 < y1 < 566:
                     stroke_side = stroke_size_overlay_list[3]
                     brush_thickness = 22
                     eraser_thickness = brush_thickness*3
-                    play_stroke_size_change()
+                    sound_stroke_size_change()
                 elif 586 < y1 < 688:
                     stroke_side = stroke_size_overlay_list[4]
                     brush_thickness = 26
                     eraser_thickness = brush_thickness*3
-                    play_stroke_size_change()
+                    sound_stroke_size_change()
                 else:
                     pass
-            cv2.rectangle(webcam_img, (x1, y1-15), (x2, y2+15),color,cv2.FILLED)
+            cv2.rectangle(webcam_img, (x1, y1-15),
+                          (x2, y2+15), color, cv2.FILLED)
         # 5. Drawing Mode - Index finger
         if fingers[1] and fingers[2] == False:
-            cv2.circle(webcam_img,(x1,y1),15,color,cv2.FILLED)
+            cv2.circle(webcam_img, (x1, y1), 15, color, cv2.FILLED)
             # print('Drawing Mode')
-            if x_prev ==0 and y_prev == 0:
+            if x_prev == 0 and y_prev == 0:
                 x_prev, y_prev = x1, y1
             if color == (0, 0, 0):
-                cv2.line(webcam_img, (x_prev,y_prev), (x1,y1), color,eraser_thickness)
-                cv2.line(img_canvas, (x_prev,y_prev), (x1,y1), color,eraser_thickness)
-                cv2.line(img_white_board, (x_prev,y_prev), (x1,y1), eraser_color_for_board,eraser_thickness)
+                cv2.line(webcam_img, (x_prev, y_prev),
+                         (x1, y1), color, eraser_thickness)
+                cv2.line(img_canvas, (x_prev, y_prev),
+                         (x1, y1), color, eraser_thickness)
+                cv2.line(img_white_board, (x_prev, y_prev), (x1, y1),
+                         eraser_color_for_board, eraser_thickness)
             else:
-                cv2.line(webcam_img, (x_prev,y_prev), (x1,y1), color,brush_thickness)
-                cv2.line(img_canvas, (x_prev,y_prev), (x1,y1), color,brush_thickness)
-                cv2.line(img_white_board, (x_prev,y_prev), (x1,y1), color,brush_thickness)
+                cv2.line(webcam_img, (x_prev, y_prev),
+                         (x1, y1), color, brush_thickness)
+                cv2.line(img_canvas, (x_prev, y_prev),
+                         (x1, y1), color, brush_thickness)
+                cv2.line(img_white_board, (x_prev, y_prev),
+                         (x1, y1), color, brush_thickness)
             x_prev, y_prev = x1, y1
 
     # Merging images onto Web Cam
@@ -217,10 +238,9 @@ while True:
     webcam_img = cv2.bitwise_and(webcam_img, img_inv)
     webcam_img = cv2.bitwise_or(webcam_img, img_canvas)
 
-
     # Setting the header image
-    webcam_img[0:100,0:1280] = header
-    webcam_img[100:720,0:100] = stroke_side
+    webcam_img[0:100, 0:1280] = header
+    webcam_img[100:720, 0:100] = stroke_side
 
     cv2.imshow("Suketchi", webcam_img)
     cv2.imshow("White Board", img_white_board)
