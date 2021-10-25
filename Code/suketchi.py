@@ -30,7 +30,6 @@ def sound_color_change():
 def sound_stroke_size_change():
     threading.Thread(target=play_stroke_size_change, daemon=True).start()
 
-
 header_path = './UI/Header Selection'
 header_list = os.listdir(header_path)
 # print(header_list)
@@ -80,6 +79,9 @@ eraser_color_for_board = (255, 255, 255)
 brush_thickness = 18
 eraser_thickness = 54
 
+# Variables for keeping track of color and stroke change
+color_change_identifier = False
+stroke_size_identifier = False
 
 x_prev, y_prev = 0, 0
 
@@ -124,59 +126,87 @@ while True:
                 if 149 < x1 < 213:
                     header = header_overlay_list[0]
                     color = red
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier                  
                 elif 237 < x1 < 299:
                     header = header_overlay_list[1]
                     color = dark_red
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier   
                 elif 317 < x1 < 377:
                     header = header_overlay_list[2]
                     color = brown
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier   
                 elif 394 < x1 < 458:
                     header = header_overlay_list[3]
                     color = orange
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier   
                 elif 475 < x1 < 528:
                     header = header_overlay_list[4]
                     color = yellow
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier   
                 elif 553 < x1 < 614:
                     header = header_overlay_list[5]
                     color = flu_green
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier   
                 elif 633 < x1 < 694:
                     header = header_overlay_list[6]
                     color = green
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier   
                 elif 710 < x1 < 773:
                     header = header_overlay_list[7]
                     color = dark_green
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier   
                 elif 791 < x1 < 852:
                     header = header_overlay_list[8]
                     color = blue
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier   
                 elif 871 < x1 < 933:
                     header = header_overlay_list[9]
                     color = dark_blue
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier   
                 elif 948 < x1 < 1012:
                     header = header_overlay_list[10]
                     color = pink
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier   
                 elif 1028 < x1 < 1090:
                     header = header_overlay_list[11]
                     color = violet
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier   
                 elif 1106 < x1 < 1168:
                     header = header_overlay_list[12]
                     color = white
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier   
                 elif 1181 < x1 < 1250:
                     header = header_overlay_list[13]
                     color = (0, 0, 0)
-                    sound_color_change()
+                    if color_change_identifier == False:
+                        sound_color_change()
+                        color_change_identifier = not color_change_identifier   
                 else:
                     pass
             elif x1 < 100:
