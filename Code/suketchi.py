@@ -8,7 +8,7 @@ import threading
 
 intro_audio_path = './Assets/Audio/Player_boost_recharging.wav'
 color_change_audio_path = './Assets/Audio/Player_jumping_in_a_video_game_trimmed.wav'
-stroke_size_audio_path = './Assets/Audio/Unlock_New_Item_Game_Notification_trimmed.wav'
+stroke_size_audio_path = './Assets/Audio/Sci_fi_Positive_Notification_trimmed.wav'
 
 
 def play_intro():
