@@ -14,22 +14,17 @@ stroke_size_audio_path = './Assets/Audio/Unlock_New_Item_Game_Notification_trimm
 def play_intro():
     ps.playsound(intro_audio_path)
 
-
 def play_color_change():
     ps.playsound(color_change_audio_path)
-
 
 def play_stroke_size_change():
     ps.playsound(stroke_size_audio_path)
 
-
 def sound_color_change():
     threading.Thread(target=play_color_change, daemon=True).start()
 
-
 def sound_stroke_size_change():
     threading.Thread(target=play_stroke_size_change, daemon=True).start()
-
 
 header_path = './UI/Header Selection'
 header_list = os.listdir(header_path)
@@ -206,34 +201,47 @@ while True:
 
                 else:
                     pass
+
             elif x1 < 100:
+
                 if 204 < y1 < 272:
                     stroke_side = stroke_size_overlay_list[0]
-                    brush_thickness = 10
-                    eraser_thickness = brush_thickness*3
-                    sound_stroke_size_change()
+                    if brush_thickness != 10:
+                        brush_thickness = 10
+                        eraser_thickness = brush_thickness*3
+                        sound_stroke_size_change()
+                    
                 elif 280 < y1 < 357:
                     stroke_side = stroke_size_overlay_list[1]
-                    brush_thickness = 14
-                    eraser_thickness = brush_thickness*3
-                    sound_stroke_size_change()
+                    if brush_thickness != 14:
+                        brush_thickness = 14
+                        eraser_thickness = brush_thickness*3
+                        sound_stroke_size_change()
+
                 elif 377 < y1 < 463:
                     stroke_side = stroke_size_overlay_list[2]
-                    brush_thickness = 18
-                    eraser_thickness = brush_thickness*3
-                    sound_stroke_size_change()
+                    if brush_thickness != 18:
+                        brush_thickness = 18
+                        eraser_thickness = brush_thickness*3
+                        sound_stroke_size_change()
+
                 elif 473 < y1 < 566:
                     stroke_side = stroke_size_overlay_list[3]
-                    brush_thickness = 22
-                    eraser_thickness = brush_thickness*3
-                    sound_stroke_size_change()
+                    if brush_thickness != 22:
+                        brush_thickness = 22
+                        eraser_thickness = brush_thickness*3
+                        sound_stroke_size_change()
+
                 elif 586 < y1 < 688:
                     stroke_side = stroke_size_overlay_list[4]
-                    brush_thickness = 26
-                    eraser_thickness = brush_thickness*3
-                    sound_stroke_size_change()
+                    if brush_thickness != 26:
+                        brush_thickness = 26
+                        eraser_thickness = brush_thickness*3
+                        sound_stroke_size_change()
+
                 else:
                     pass
+
             cv2.rectangle(webcam_img, (x1, y1-15),
                           (x2, y2+15), color, cv2.FILLED)
         # 5. Drawing Mode - Index finger
