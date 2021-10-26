@@ -6,11 +6,12 @@ import hand_tracking_module as htm
 import playsound as ps
 import threading
 
+# Paths for Audio Files
 intro_audio_path = './Assets/Audio/Player_boost_recharging.wav'
 color_change_audio_path = './Assets/Audio/Player_jumping_in_a_video_game_trimmed.wav'
 stroke_size_audio_path = './Assets/Audio/Sci_fi_Positive_Notification_trimmed.wav'
 
-
+# Functions to play sound effects
 def play_intro():
     ps.playsound(intro_audio_path)
 
@@ -20,12 +21,14 @@ def play_color_change():
 def play_stroke_size_change():
     ps.playsound(stroke_size_audio_path)
 
+# Functions to create threads to play sound asynchronously
 def sound_color_change():
     threading.Thread(target=play_color_change, daemon=True).start()
 
 def sound_stroke_size_change():
     threading.Thread(target=play_stroke_size_change, daemon=True).start()
 
+# Paths for UI
 header_path = './UI/Header Selection'
 header_list = os.listdir(header_path)
 # print(header_list)
@@ -34,10 +37,11 @@ stroke_size_path = './UI/Stroke Size Selection'
 stroke_size_list = os.listdir(stroke_size_path)
 # # print(stroke_size_list)
 
+# Lists to store diffrent UI elements
 header_overlay_list = []
-
 stroke_size_overlay_list = []
 
+# Reading images from the list and storing them in another list
 for im_path in header_list:
     image = cv2.imread(f'{header_path}/{im_path}')
     header_overlay_list.append(image)
@@ -48,6 +52,7 @@ for im_path in stroke_size_list:
     stroke_size_overlay_list.append(image)
 # print(len(stroke_size_overlay_list))
 
+# Setting default images for UI
 header = header_overlay_list[0]
 stroke_side = stroke_size_overlay_list[2]
 
@@ -71,20 +76,28 @@ color = red
 # Setting eraser color as white for white board
 eraser_color_for_board = (255, 255, 255)
 
+# Setting default brush size and eraser size
 brush_thickness = 18
 eraser_thickness = 54
 
+# Intialising x and y co-ordinates for drawing
 x_prev, y_prev = 0, 0
 
+# Setting window dimensions
 cap = cv2.VideoCapture(0)
 cap.set(3, 1280)
 cap.set(4, 720)
 
-img_canvas = np.zeros((720, 1280, 3), np.uint8)
-img_white_board = 255 * np.ones((720, 1280, 3), np.uint8)
+# Creating canvases to draw on top of them
+# For overlaying onto webcam
+img_canvas = np.zeros((720, 1280, 3), np.uint8) 
+# For overlaying onto whiteboard
+img_white_board = 255 * np.ones((720, 1280, 3), np.uint8) 
 
+# Creating object of hand_detection_module
 detector = htm.handDetector(detection_confidence=0.85)
 
+# Playing intro sound effect
 play_intro()
 
 while True:
@@ -109,10 +122,12 @@ while True:
         # 3. Check Finger count
         fingers = detector.fingersUp()
         print(fingers)
+
         # 4. Selection Mode - Two fingers
         if fingers[1] and fingers[2]:
             x_prev, y_prev = 0, 0
-            # Checking for the click
+
+            # Checking for the click and change in color
             if y1 < 100:
 
                 if 149 < x1 < 213:
@@ -201,7 +216,7 @@ while True:
 
                 else:
                     pass
-
+            # Checking for the click and change in stroke size
             elif x1 < 100:
 
                 if 204 < y1 < 272:
@@ -244,6 +259,7 @@ while True:
 
             cv2.rectangle(webcam_img, (x1, y1-15),
                           (x2, y2+15), color, cv2.FILLED)
+
         # 5. Drawing Mode - Index finger
         if fingers[1] and fingers[2] == False:
             cv2.circle(webcam_img, (x1, y1), 15, color, cv2.FILLED)
@@ -273,13 +289,15 @@ while True:
     webcam_img = cv2.bitwise_and(webcam_img, img_inv)
     webcam_img = cv2.bitwise_or(webcam_img, img_canvas)
 
-    # Setting the header image
+    # Setting the UI elements
     webcam_img[0:100, 0:1280] = header
     webcam_img[100:720, 0:100] = stroke_side
 
+    # Displaying the windows
     cv2.imshow("Suketchi", webcam_img)
     cv2.imshow("White Board", img_white_board)
 
+    # Refreshing images and condition for exiting
     if cv2.waitKey(1) & 0xff == ord('q'):
         break
 
