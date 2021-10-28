@@ -10,6 +10,7 @@ import threading
 intro_audio_path = './Assets/Audio/Player_boost_recharging.wav'
 color_change_audio_path = './Assets/Audio/Player_jumping_in_a_video_game_trimmed.wav'
 stroke_size_audio_path = './Assets/Audio/Sci_fi_Positive_Notification_trimmed.wav'
+clear_screen_audio_path = './Assets/Audio/Owl_Hoot_trimmed.wav'
 
 # Functions to play sound effects
 def play_intro():
@@ -21,12 +22,18 @@ def play_color_change():
 def play_stroke_size_change():
     ps.playsound(stroke_size_audio_path)
 
+def play_clear_screen():
+    ps.playsound(clear_screen_audio_path)
+
 # Functions to create threads to play sound asynchronously
 def sound_color_change():
     threading.Thread(target=play_color_change, daemon=True).start()
 
 def sound_stroke_size_change():
     threading.Thread(target=play_stroke_size_change, daemon=True).start()
+
+def sound_clear_screen():
+    threading.Thread(target=play_clear_screen, daemon=True).start()
 
 # Paths for UI
 header_path = './UI/Header Selection'
@@ -216,6 +223,8 @@ while True:
                 elif 15 < x1 < 112:
                     img_canvas = np.zeros((720, 1280, 3), np.uint8) 
                     img_white_board = 255 * np.ones((720, 1280, 3), np.uint8) 
+                    sound_clear_screen()
+                    
                 else:
                     pass
             # Checking for the click and change in stroke size
