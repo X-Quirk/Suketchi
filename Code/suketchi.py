@@ -213,7 +213,9 @@ while True:
                     if color != (0, 0, 0):
                         color = (0, 0, 0)
                         sound_color_change()
-
+                elif 15 < x1 < 112:
+                    img_canvas = np.zeros((720, 1280, 3), np.uint8) 
+                    img_white_board = 255 * np.ones((720, 1280, 3), np.uint8) 
                 else:
                     pass
             # Checking for the click and change in stroke size
