@@ -293,6 +293,10 @@ while True:
                 cv2.line(img_white_board, (x_prev, y_prev),
                          (x1, y1), color, brush_thickness)
             x_prev, y_prev = x1, y1
+            
+        # 6. Exporting Saved copy
+        # if fingers[1] and fingers[2] and fingers[3]:
+        #     cv2.imwrite('./Code',img_white_board)
 
     # Merging images onto Web Cam
     img_gray = cv2.cvtColor(img_canvas, cv2.COLOR_BGR2GRAY)
