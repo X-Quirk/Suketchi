@@ -227,6 +227,7 @@ while True:
                     
                 else:
                     pass
+                
             # Checking for the click and change in stroke size
             elif x1 < 100:
 
