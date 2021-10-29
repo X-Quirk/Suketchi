@@ -13,21 +13,29 @@ stroke_size_audio_path = './Assets/Audio/Sci_fi_Positive_Notification_trimmed.wa
 clear_screen_audio_path = './Assets/Audio/Owl_Hoot_trimmed.wav'
 
 # Functions to play sound effects
+
+
 def play_intro():
     ps.playsound(intro_audio_path)
+
 
 def play_color_change():
     ps.playsound(color_change_audio_path)
 
+
 def play_stroke_size_change():
     ps.playsound(stroke_size_audio_path)
+
 
 def play_clear_screen():
     ps.playsound(clear_screen_audio_path)
 
 # Functions to create threads to play sound asynchronously
+
+
 def sound_color_change():
     threading.Thread(target=play_color_change, daemon=True).start()
+
 
 def sound_stroke_size_change():
     threading.Thread(target=play_stroke_size_change, daemon=True).start()
@@ -43,6 +51,7 @@ def sound_stroke_size_change():
 
 def sound_clear_screen():
     threading.Thread(target=play_clear_screen, daemon=True).start()
+
 
 # Paths for UI
 header_path = './UI/Header Selection'
@@ -106,9 +115,9 @@ cap.set(4, 720)
 
 # Creating canvases to draw on top of them
 # For overlaying onto webcam
-img_canvas = np.zeros((720, 1280, 3), np.uint8) 
+img_canvas = np.zeros((720, 1280, 3), np.uint8)
 # For overlaying onto whiteboard
-img_white_board = 255 * np.ones((720, 1280, 3), np.uint8) 
+img_white_board = 255 * np.ones((720, 1280, 3), np.uint8)
 
 # Creating object of hand_detection_module
 detector = htm.handDetector(detection_confidence=0.85)
@@ -230,13 +239,13 @@ while True:
                         color = (0, 0, 0)
                         sound_color_change()
                 elif 15 < x1 < 112:
-                    img_canvas = np.zeros((720, 1280, 3), np.uint8) 
-                    img_white_board = 255 * np.ones((720, 1280, 3), np.uint8) 
+                    img_canvas = np.zeros((720, 1280, 3), np.uint8)
+                    img_white_board = 255 * np.ones((720, 1280, 3), np.uint8)
                     sound_clear_screen()
-                    
+
                 else:
                     pass
-                
+
             # Checking for the click and change in stroke size
             elif x1 < 100:
 
@@ -246,7 +255,7 @@ while True:
                         brush_thickness = 10
                         eraser_thickness = brush_thickness*3
                         sound_stroke_size_change()
-                    
+
                 elif 280 < y1 < 357:
                     stroke_side = stroke_size_overlay_list[1]
                     if brush_thickness != 14:
@@ -302,7 +311,7 @@ while True:
                 cv2.line(img_white_board, (x_prev, y_prev),
                          (x1, y1), color, brush_thickness)
             x_prev, y_prev = x1, y1
-            
+
         # 6. Exporting Saved copy
         # if fingers[1] and fingers[2] and fingers[3]:
         #     save_image(img_white_board)
