@@ -32,6 +32,15 @@ def sound_color_change():
 def sound_stroke_size_change():
     threading.Thread(target=play_stroke_size_change, daemon=True).start()
 
+# Function to create for thread for saving image
+# def create_thread_save_image():
+#     threading.Thread(target=play_stroke_size_change, daemon=True).start()
+#     threading.Thread.join()
+
+# def save_image(img):
+#     cv2.imwrite('./Saves',img)
+
+
 def sound_clear_screen():
     threading.Thread(target=play_clear_screen, daemon=True).start()
 
@@ -296,7 +305,7 @@ while True:
             
         # 6. Exporting Saved copy
         # if fingers[1] and fingers[2] and fingers[3]:
-        #     cv2.imwrite('./Code',img_white_board)
+        #     save_image(img_white_board)
 
     # Merging images onto Web Cam
     img_gray = cv2.cvtColor(img_canvas, cv2.COLOR_BGR2GRAY)
