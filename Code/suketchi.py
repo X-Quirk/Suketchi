@@ -238,11 +238,13 @@ while True:
                     if color != (0, 0, 0):
                         color = (0, 0, 0)
                         sound_color_change()
-                elif 15 < x1 < 112:
-                    img_canvas = np.zeros((720, 1280, 3), np.uint8)
-                    img_white_board = 255 * np.ones((720, 1280, 3), np.uint8)
-                    sound_clear_screen()
 
+                elif 15 < x1 < 112:
+                    if (np.sum(img_canvas) != 0):
+                        img_canvas = np.zeros((720, 1280, 3), np.uint8)
+                        img_white_board = 255 * np.ones((720, 1280, 3), np.uint8)
+                        sound_clear_screen()
+                    
                 else:
                     pass
 
@@ -334,5 +336,4 @@ while True:
     # Refreshing images and condition for exiting
     if cv2.waitKey(1) & 0xff == ord('q'):
         break
-
 cv2.destroyAllWindows()
