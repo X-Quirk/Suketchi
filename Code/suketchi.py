@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import time
+from datetime import date
 import os
 import hand_tracking_module as htm
 import playsound as ps
@@ -40,13 +40,25 @@ def sound_color_change():
 def sound_stroke_size_change():
     threading.Thread(target=play_stroke_size_change, daemon=True).start()
 
+i = 1
+
 # Function to create for thread for saving image
 # def create_thread_save_image():
 #     threading.Thread(target=play_stroke_size_change, daemon=True).start()
 #     threading.Thread.join()
 
-# def save_image(img):
-#     cv2.imwrite('./Saves',img)
+def save_image(img, i):
+     today = date.today()
+     today = today.strftime("%d-%m-%Y")
+     try:
+        if os.path.exists("./Saves") :
+        # Change the current working Directory    
+            os.chdir("./Saves")
+            print("Directory changed")
+            cv2.imwrite(today+'_White_Board_Copy_'+str(i)+'.png',img)
+     except OSError:
+        print("Error Occured while Switching Directories")
+
 
 
 def sound_clear_screen():
@@ -315,8 +327,12 @@ while True:
             x_prev, y_prev = x1, y1
 
         # 6. Exporting Saved copy
-        # if fingers[1] and fingers[2] and fingers[3]:
-        #     save_image(img_white_board)
+        if fingers[1] and fingers[2] and fingers[3] and fingers[4] == False and fingers[0] == False:
+            save_image(img_white_board, i)
+            i += 1
+            img_canvas = np.zeros((720, 1280, 3), np.uint8)
+            img_white_board = 255 * np.ones((720, 1280, 3), np.uint8)
+        
 
     # Merging images onto Web Cam
     img_gray = cv2.cvtColor(img_canvas, cv2.COLOR_BGR2GRAY)
@@ -336,4 +352,5 @@ while True:
     # Refreshing images and condition for exiting
     if cv2.waitKey(1) & 0xff == ord('q'):
         break
+cap.release()
 cv2.destroyAllWindows()
