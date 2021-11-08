@@ -16,14 +16,11 @@ clear_screen_audio_path = './Assets/Audio/Owl_Hoot_trimmed.wav'
 def play_intro():
     ps.playsound(intro_audio_path)
 
-
 def play_color_change():
     ps.playsound(color_change_audio_path)
 
-
 def play_stroke_size_change():
     ps.playsound(stroke_size_audio_path)
-
 
 def play_clear_screen():
     ps.playsound(clear_screen_audio_path)
@@ -31,7 +28,6 @@ def play_clear_screen():
 # Functions to create threads to play sound asynchronously
 def sound_color_change():
     threading.Thread(target=play_color_change, daemon=True).start()
-
 
 def sound_stroke_size_change():
     threading.Thread(target=play_stroke_size_change, daemon=True).start()
@@ -50,11 +46,8 @@ def save_image(img):
      except OSError:
         print("Error Occured while Switching Directories")
 
-
-
 def sound_clear_screen():
     threading.Thread(target=play_clear_screen, daemon=True).start()
-
 
 # Paths for UI
 header_path = './UI/Header Selection'
@@ -318,10 +311,11 @@ while True:
             x_prev, y_prev = x1, y1
 
         # 6. Exporting Saved copy
-        if fingers[1] and fingers[4] and fingers[0] == False and fingers[2] == False and fingers[3] == False:
-            save_image(img_white_board)
-            img_canvas = np.zeros((720, 1280, 3), np.uint8)
-            img_white_board = 255 * np.ones((720, 1280, 3), np.uint8)
+        if fingers[0] and fingers[4] and fingers[1] == False and fingers[2]== False and fingers[3] == False :
+            if (np.sum(img_canvas) != 0):
+                save_image(img_white_board)
+                img_canvas = np.zeros((720, 1280, 3), np.uint8)
+                img_white_board = 255 * np.ones((720, 1280, 3), np.uint8)
         
 
     # Merging images onto Web Cam
