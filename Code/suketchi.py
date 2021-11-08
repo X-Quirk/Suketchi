@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from datetime import date
+from datetime import datetime
 import os
 import hand_tracking_module as htm
 import playsound as ps
@@ -40,22 +40,27 @@ def sound_color_change():
 def sound_stroke_size_change():
     threading.Thread(target=play_stroke_size_change, daemon=True).start()
 
-i = 1
-
 # Function to create for thread for saving image
 # def create_thread_save_image():
 #     threading.Thread(target=play_stroke_size_change, daemon=True).start()
 #     threading.Thread.join()
 
-def save_image(img, i):
-     today = date.today()
-     today = today.strftime("%d-%m-%Y")
+def save_image(img):
+     today = datetime.now()
+     date_today = today.date()
+     time_today = today.time()
+
+     date_today = str(date_today)
+
+     time_today = str(time_today)
+     time_today.replace(':'," ")
+     #today = today.strftime("%d-%m-%Y")
      try:
         if os.path.exists("./Saves") :
         # Change the current working Directory    
             os.chdir("./Saves")
             print("Directory changed")
-            cv2.imwrite(today+'_White_Board_Copy_'+str(i)+'.png',img)
+            cv2.imwrite(date_today+' '+time_today+' White_Board'+'.png',img)
      except OSError:
         print("Error Occured while Switching Directories")
 
@@ -328,8 +333,7 @@ while True:
 
         # 6. Exporting Saved copy
         if fingers[1] and fingers[2] and fingers[3] and fingers[4] == False and fingers[0] == False:
-            save_image(img_white_board, i)
-            i += 1
+            save_image(img_white_board)
             img_canvas = np.zeros((720, 1280, 3), np.uint8)
             img_white_board = 255 * np.ones((720, 1280, 3), np.uint8)
         
