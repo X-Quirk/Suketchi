@@ -74,37 +74,3 @@ class handDetector():
                 fingers.append(0)
         return fingers
 
-
-def main():
-    # For frame rates
-    prev_time = 0
-    current_time = 0
-
-    cap = cv2.VideoCapture(0)
-
-    detector = handDetector()
-
-    while True:
-        success, img = cap.read()
-
-        img = detector.findHands(img)
-        landmark_list = detector.findLandmarkPosition(img)
-
-        if len(landmark_list) != 0:
-            print(landmark_list[4])
-
-        current_time = time.time()
-        fps = 1/(current_time-prev_time)
-        prev_time = current_time
-
-        cv2.putText(img, str(int(fps)), (10, 70),
-                    cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 0), 2)  # Viewing the fps
-
-        cv2.imshow('Image', img)
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-
-if __name__ == '__main__':
-    main()
