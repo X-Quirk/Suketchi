@@ -11,6 +11,7 @@ intro_audio_path = './Assets/Audio/Player_boost_recharging.wav'
 color_change_audio_path = './Assets/Audio/Player_jumping_in_a_video_game_trimmed.wav'
 stroke_size_audio_path = './Assets/Audio/Sci_fi_Positive_Notification_trimmed.wav'
 clear_screen_audio_path = './Assets/Audio/Owl_Hoot_trimmed.wav'
+save_image_audio_path = './Assets/Audio/Unlock_New_Item_Game_Notification_trimmed.wav'
 
 # Functions to play sound effects
 def play_intro():
@@ -25,6 +26,9 @@ def play_stroke_size_change():
 def play_clear_screen():
     ps.playsound(clear_screen_audio_path)
 
+def play_save_image():
+    ps.playsound(save_image_audio_path)
+
 # Functions to create threads to play sound asynchronously
 def sound_color_change():
     threading.Thread(target=play_color_change, daemon=True).start()
@@ -32,17 +36,30 @@ def sound_color_change():
 def sound_stroke_size_change():
     threading.Thread(target=play_stroke_size_change, daemon=True).start()
 
+def sound_save_image():
+    threading.Thread(target=play_save_image, daemon=True).start()
+
 # Function to Export Saved Images
 def save_image(img):
      now = datetime.now()
      try:
-        if os.path.exists("./Saves") :
         # Change the current working Directory    
-            os.chdir("./Saves")
-            print("Directory changed")
-            cv2.imwrite('{}-{}-{} {}_{}_{} White Board'.format(
-                now.day,now.month,now.year,now.hour,now.minute,now.second
+        os.chdir("./Saves")
+        print("Directory changed")
+        if os.path.exists('{}-{}-{}'.format(now.day, now.month, now.year)):
+            os.chdir('{}-{}-{}'.format(now.day, now.month, now.year))
+            cv2.imwrite('{}H {}M {}S White Board'.format(
+                now.hour,now.minute,now.second
                 )+'.png',img)
+            os.chdir('..')
+        else:
+            os.mkdir('{}-{}-{}'.format(now.day, now.month, now.year))
+            os.chdir('{}-{}-{}'.format(now.day, now.month, now.year))
+            cv2.imwrite('{}H {}M {}S White Board'.format(
+                now.hour,now.minute,now.second
+                )+'.png',img)
+            os.chdir('..')
+        os.chdir('..')
      except OSError:
         print("Error Occured while Switching Directories")
 
@@ -142,7 +159,7 @@ while True:
 
         # 3. Check Finger count
         fingers = detector.fingersUp()
-        print(fingers)
+        #print(fingers)
 
         # 4. Selection Mode - Two fingers
         if fingers[1] and fingers[2]:
@@ -313,6 +330,7 @@ while True:
         # 6. Exporting Saved copy
         if fingers[0] and fingers[4] and fingers[1] == False and fingers[2]== False and fingers[3] == False :
             if (np.sum(img_canvas) != 0):
+                sound_save_image()
                 save_image(img_white_board)
                 img_canvas = np.zeros((720, 1280, 3), np.uint8)
                 img_white_board = 255 * np.ones((720, 1280, 3), np.uint8)
