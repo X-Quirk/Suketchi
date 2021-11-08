@@ -46,21 +46,17 @@ def sound_stroke_size_change():
 #     threading.Thread.join()
 
 def save_image(img):
-     today = datetime.now()
-     date_today = today.date()
-     time_today = today.time()
+     now = datetime.now()
 
-     date_today = str(date_today)
-
-     time_today = str(time_today)
-     time_today.replace(':'," ")
      #today = today.strftime("%d-%m-%Y")
      try:
         if os.path.exists("./Saves") :
         # Change the current working Directory    
             os.chdir("./Saves")
             print("Directory changed")
-            cv2.imwrite(date_today+' '+time_today+' White_Board'+'.png',img)
+            cv2.imwrite('{}-{}-{} {}-{}-{} White_Board'.format(
+                now.day,now.month,now.year,now.hour,now.minute,now.second
+                )+'.png',img)
      except OSError:
         print("Error Occured while Switching Directories")
 
@@ -332,7 +328,7 @@ while True:
             x_prev, y_prev = x1, y1
 
         # 6. Exporting Saved copy
-        if fingers[1] and fingers[2] and fingers[3] and fingers[4] == False and fingers[0] == False:
+        if fingers[1] and fingers[4] and fingers[0] == False and fingers[2] == False and fingers[3] == False:
             save_image(img_white_board)
             img_canvas = np.zeros((720, 1280, 3), np.uint8)
             img_white_board = 255 * np.ones((720, 1280, 3), np.uint8)
