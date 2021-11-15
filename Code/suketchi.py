@@ -11,7 +11,6 @@ intro_audio_path = './Assets/Audio/Player_boost_recharging.wav'
 color_change_audio_path = './Assets/Audio/Player_jumping_in_a_video_game_trimmed.wav'
 stroke_size_audio_path = './Assets/Audio/Sci_fi_Positive_Notification_trimmed.wav'
 clear_screen_audio_path = './Assets/Audio/Owl_Hoot_trimmed.wav'
-save_image_audio_path = './Assets/Audio/Unlock_New_Item_Game_Notification_trimmed.wav'
 
 # Functions to play sound effects
 def play_intro():
@@ -26,9 +25,6 @@ def play_stroke_size_change():
 def play_clear_screen():
     ps.playsound(clear_screen_audio_path)
 
-def play_save_image():
-    ps.playsound(save_image_audio_path)
-
 # Functions to create threads to play sound asynchronously
 def sound_color_change():
     threading.Thread(target=play_color_change, daemon=True).start()
@@ -36,8 +32,9 @@ def sound_color_change():
 def sound_stroke_size_change():
     threading.Thread(target=play_stroke_size_change, daemon=True).start()
 
-def sound_save_image():
-    threading.Thread(target=play_save_image, daemon=True).start()
+def sound_clear_screen():
+    threading.Thread(target=play_clear_screen, daemon=True).start()
+
 
 # Function to Export Saved Images
 def save_image(img):
@@ -63,8 +60,7 @@ def save_image(img):
      except OSError:
         print("Error Occured while Switching Directories")
 
-def sound_clear_screen():
-    threading.Thread(target=play_clear_screen, daemon=True).start()
+
 
 # Paths for UI
 header_path = './UI/Header Selection'
@@ -162,7 +158,7 @@ while True:
         #print(fingers)
 
         # 4. Selection Mode - Two fingers
-        if fingers[1] and fingers[2]:
+        if fingers[1] and fingers[2] and fingers[0] == False and fingers[3] == False and fingers[4] == False:
             x_prev, y_prev = 0, 0
 
             # Checking for the click and change in color
@@ -306,7 +302,7 @@ while True:
                           (x2, y2+15), color, cv2.FILLED)
 
         # 5. Drawing Mode - Index finger
-        if fingers[1] and fingers[2] == False:
+        if fingers[1] and fingers[0] == False and fingers[2] == False and fingers[3] == False and fingers[4] == False:
             cv2.circle(webcam_img, (x1, y1), 15, color, cv2.FILLED)
             # print('Drawing Mode')
             if x_prev == 0 and y_prev == 0:
@@ -330,7 +326,6 @@ while True:
         # 6. Exporting Saved copy
         if fingers[0] and fingers[4] and fingers[1] == False and fingers[2]== False and fingers[3] == False :
             if (np.sum(img_canvas) != 0):
-                sound_save_image()
                 save_image(img_white_board)
                 img_canvas = np.zeros((720, 1280, 3), np.uint8)
                 img_white_board = 255 * np.ones((720, 1280, 3), np.uint8)
